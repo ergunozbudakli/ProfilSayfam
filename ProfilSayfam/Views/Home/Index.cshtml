@@ -1,0 +1,553 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = "Ergün ÖZBUDAKLI - Full Stack .NET Developer | Format Converter Tool";
+    ViewData["Description"] = "Full Stack .NET Developer with expertise in web development. Creator of Format Converter - a professional PDF to Word conversion tool. Experienced in C#, .NET Core, Angular, and SQL Server.";
+    ViewData["Keywords"] = "format converter, pdf to word, .net developer, full stack developer, web development, c#, angular, sql server, izmir";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="@ViewData["Description"]">
+    <meta name="keywords" content="@ViewData["Keywords"]">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ergunozbudakli.com/">
+    <meta property="og:title" content="@ViewData["Title"]">
+    <meta property="og:description" content="@ViewData["Description"]">
+    <meta property="og:image" content="~/assets/images/preview.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ergunozbudakli.com/">
+    <meta property="twitter:title" content="@ViewData["Title"]">
+    <meta property="twitter:description" content="@ViewData["Description"]">
+    <meta property="twitter:image" content="~/assets/images/preview.jpg">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ergunozbudakli.com/" />
+
+    <!-- Structured Data / Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@@context": "http://schema.org",
+        "@@type": "Person",
+        "name": "Ergün ÖZBUDAKLI",
+        "jobTitle": "Full Stack .NET Developer",
+        "url": "https://ergunozbudakli.com",
+        "sameAs": [
+            "https://linkedin.com/in/ergunozbudakli",
+            "https://github.com/ergunozbudakli"
+        ],
+        "mainEntityOfPage": {
+            "@@type": "WebPage",
+            "@@id": "https://ergunozbudakli.com"
+        }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@@context": "http://schema.org",
+        "@@type": "SoftwareApplication",
+        "name": "Format Converter",
+        "applicationCategory": "WebApplication",
+        "operatingSystem": "Web Browser",
+        "description": "Professional PDF to Word conversion tool with high accuracy and user-friendly interface.",
+        "offers": {
+            "@@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/plugins/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link href="~/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <style>
+        /* Animasyon stilleri */
+        .animate-on-load {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animate-on-load.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animasyon gecikmeleri */
+        .delay-1 { transition-delay: 0.2s; }
+        .delay-2 { transition-delay: 0.4s; }
+        .delay-3 { transition-delay: 0.6s; }
+        .delay-4 { transition-delay: 0.8s; }
+
+        body section[id="about"] .title h3 {
+            color: #E31C25 !important;
+            margin-bottom: 1rem !important;
+            font-weight: 600 !important;
+        }
+
+        body section[id="about"] .title p {
+            color: #9e9e9e !important;
+            line-height: 1.6 !important;
+            margin-bottom: 1rem !important;
+        }
+        
+        body section[id="about"] .wrapper {
+            display: flex !important;
+            min-height: 100vh !important;
+        }
+        
+        body section[id="about"] .left-wrapper,
+        body section[id="about"] .right-wrapper {
+            flex: 1 !important;
+            position: relative !important;
+            height: 100% !important;
+        }
+        
+        body section[id="about"] .right-wrapper .content {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            width: 100% !important;
+            padding: 2rem !important;
+        }
+        
+        body section[id="about"] .right-wrapper .content .title {
+            text-align: left !important;
+        }
+
+        /* Contact Form Styles */
+        .contact-form-wrapper {
+            background: rgba(19, 19, 19, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-floating {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 0.75rem 1rem;
+            height: auto;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-floating label {
+            color: rgba(255, 255, 255, 0.6);
+            padding: 0.75rem 1rem;
+            height: auto;
+            transform-origin: 0 0;
+            transition: opacity .1s ease-in-out,transform .1s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label {
+            color: #fff;
+            transform: scale(0.85) translateY(-0.75rem);
+            background: rgba(19, 19, 19, 0.95);
+            padding: 0 0.5rem;
+            margin-left: 0.5rem;
+            opacity: 1;
+        }
+
+        .form-floating > .form-control {
+            height: 3.5rem;
+        }
+
+        .form-floating > textarea.form-control {
+            height: 120px;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: none;
+        }
+
+        .btn-send {
+            background: #E31C25;
+            color: #fff;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-send:hover {
+            background: #ff1f2a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
+        }
+
+        .btn-send i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-send:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Format Dönüştürücü Buton Stilleri */
+        .btn-format-converter {
+            background: #E31C25;
+            color: #fff;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(227, 28, 37, 0.2);
+        }
+
+        .btn-format-converter:hover {
+            background: #ff1f2a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(227, 28, 37, 0.3);
+            color: #fff;
+        }
+
+        .btn-format-converter i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-format-converter:hover i {
+            transform: translateX(8px);
+        }
+
+        /* Proje Kartı Stilleri */
+        .project-card {
+            background: rgba(25, 25, 25, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(227, 28, 37, 0.1), transparent);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(227, 28, 37, 0.2);
+            border-color: rgba(227, 28, 37, 0.3);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card h3 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .project-card p {
+            color: #9e9e9e;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .project-card .btn-format-converter {
+            position: relative;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tüm animate-on-load elementlerini seç
+            const elements = document.querySelectorAll('.animate-on-load');
+            
+            // Her elemente show class'ını ekle
+            elements.forEach(element => {
+                element.classList.add('show');
+            });
+        });
+    </script>
+}
+
+<!-- Ana içerik -->
+<section id="home">
+    <div class="container">
+        <div class="row">
+            <div class="my-wrapper">
+                <div class="inter">
+                    <h6>@Localizer["Content"]</h6>
+                </div>
+                <div class="welcome-box animate-on-load delay-1">
+                    <h3><span>@Localizer["WelcomeToMyPage"]</span></h3>
+                </div>
+                <div class="name-box animate-on-load delay-2">
+                    <h1>@Localizer["HelloIAm"] <span style="white-space:nowrap">Ergün ÖZBUDAKLI.</span></h1>
+                </div>
+                <div class="line animate-on-load delay-3"></div>
+            </div>
+            <div class="copy-right">
+                <h6>© Ergün 2024</h6>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="wrapper">
+                <div class="left-wrapper">
+                    <div class="content animate-on-load delay-1">
+                        <div class="title">
+                            <h4 class="animate-on-load">@Localizer["AboutMe"]</h4>
+                            <h3 class="animate-on-load delay-1">@Localizer["CurrentPosition"]</h3>
+                            <p class="animate-on-load delay-2">@Localizer["CurrentPositionText"]</p>
+                            <h3 class="animate-on-load delay-2">@Localizer["LastExperience"]</h3>
+                            <p class="animate-on-load delay-3">@Localizer["AboutMeText1"]</p>
+                            <p style="margin-top: 10px;">@Localizer["PersonnelTrackingSystem"]</p>
+                            <p>@Localizer["AboutMeText2"]</p>
+                            <p>@Localizer["AboutMeText3"]</p>
+                            <p>@Localizer["AboutMeText4"]</p>
+                            <p>@Localizer["AboutMeText5"]</p>
+                            <p>@Localizer["AboutMeText6"]</p>
+                            <p>@Localizer["AboutMeText7"]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-wrapper">
+                    <div class="content animate-on-load delay-2">
+                        <div class="title">
+                            <h3>@Localizer["Skills"]</h3>
+                            <p class="animate-on-load delay-3">@Localizer["SkillsText1"]</p>
+                            <p>@Localizer["SkillsText2"]</p>
+                            <p>@Localizer["SkillsText3"]</p>
+                            <p>@Localizer["SkillsText4"]</p>
+                            <p>@Localizer["SkillsText5"]</p>
+                            <p>@Localizer["SkillsText6"]</p>
+                            <p>@Localizer["SkillsText7"]</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="inter">
+                    <h6>@Localizer["WhatIDo"]</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="resume">
+    <div class="container">
+        <div class="my-wrapper d-flex flex-column flex-md-row">
+            <div class="left-wrapper flex-grow-1 animate-on-load delay-2">
+                <div class="content">
+                    <div class="head">
+                        <h2>@Localizer["Education"]</h2>
+                    </div>
+                    <div class="list-inner">
+                        <ol>
+                            <li>
+                                <h4>@Localizer["SoftwareEngineering"]</h4>
+                                <h6>İzmir Ekonomi Üniversitesi</h6>
+                                <span>2017</span>
+                            </li>
+                            <li>
+                                <h4>@Localizer["HighSchool"]</h4>
+                                <h6>Balçova Anadolu Lisesi</h6>
+                                <span>2010</span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="right-wrapper flex-grow-1 animate-on-load delay-3">
+                <div class="content">
+                    <div class="head">
+                        <h2>@Localizer["Experience"]</h2>
+                    </div>
+                    <div class="list-inner">
+                        <ol>
+                            <li>
+                                <h4>@Localizer["EfeceGalvaniz"]</h4>
+                                <h6>@Localizer["SoftwareEngineer"]</h6>
+                                <span>14/02/2022 - 13/01/2025</span>
+                                <p>@Localizer["EfeceGalvanizDescription"]</p>
+                            </li>
+                            <li>
+                                <h4>@Localizer["CSistem"]</h4>
+                                <h6>@Localizer["SoftwareSupport"]</h6>
+                                <span>01/09/2020 - 15/02/2021</span>
+                                <p>@Localizer["CSistemDescription"]</p>
+                            </li>
+                            <li>
+                                <h4>WebHelp</h4>
+                                <h6>@Localizer["SoftwareSupport"]</h6>
+                                <span>30/07/2020 - 03/02/2021</span>
+                                <p>@Localizer["WebHelpDescription"]</p>
+                            </li>
+                            <li>
+                                <h4>@Localizer["Etiya"]</h4>
+                                <h6>@Localizer["SoftwareSupport"]</h6>
+                                <span>01/08/2017 - 01/02/2018</span>
+                                <p>@Localizer["EtiyaDescription"]</p>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="inter">
+                <h6>@Localizer["Career"]</h6>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="reference-projects" class="animate-on-load delay-4" style="background: #000; padding: 4rem 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h2 class="section-title animate-on-load delay-1" style="color: #E31C25; margin-bottom: 2rem; font-weight: 600;">@Localizer["ReferenceProjects"]</h2>
+                <p class="section-description animate-on-load delay-2" style="color: #9e9e9e; margin-bottom: 3rem;">@Localizer["ReferenceProjectsDescription"]</p>
+                <div class="project-cards animate-on-load delay-3">
+                    <div class="project-card" style="background: rgba(19, 19, 19, 0.95); padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                        <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 1rem;">
+                            <i class="bi bi-file-earmark-pdf me-2"></i>
+                            @Localizer["FormatConverter"] - PDF to Word Converter
+                        </h3>
+                        <p style="color: #9e9e9e; margin-bottom: 2rem;">
+                            @Localizer["FormatConverterDescription"]
+                            <span class="d-block mt-3" style="color: #9e9e9e;">
+                                @Localizer["FormatConverterFeedback"]
+                            </span>
+                        </p>
+                        <div class="features-list" style="margin-bottom: 2rem;">
+                            <div class="feature-item" style="display: inline-block; margin-right: 2rem;">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                <span style="margin-left: 10px; color: #9e9e9e;">@Localizer["FreeToUse"]</span>
+                            </div>
+                            <div class="feature-item" style="display: inline-block; margin-right: 2rem;">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                <span style="margin-left: 10px; color: #9e9e9e;">@Localizer["HighAccuracy"]</span>
+                            </div>
+                            <div class="feature-item" style="display: inline-block;">
+                                <i class="bi bi-check-circle-fill text-success"></i>
+                                <span style="margin-left: 10px; color: #9e9e9e;">@Localizer["InstantConversion"]</span>
+                            </div>
+                        </div>
+                        <a href="@Url.Action("FormatConverter", "Home")" class="btn-format-converter" title="@Localizer["TryConverter"]">
+                            <span>@Localizer["FormatConverter"]</span>
+                            <i class="bi bi-arrow-right-circle ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="animate-on-load delay-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <div class="contact-form-wrapper">
+                    <div class="heading text-center mb-4">
+                        <h2>@Localizer["Contact"]</h2>
+                        <div class="heading-line"></div>
+                    </div>
+                    <form class="contact-form">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="NameInput" required>
+                                    <label for="NameInput">@Localizer["Name"]</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="MailInput" required>
+                                    <label for="MailInput">E-Mail</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="SubjectInput" required>
+                                    <label for="SubjectInput">@Localizer["Subject"]</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="MessageText" rows="5" required></textarea>
+                                    <label for="MessageText">@Localizer["Message"]</label>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="button" class="btn-send" onclick="Send()">
+                                    <span>@Localizer["Send"]</span>
+                                    <i class="bi bi-send-fill ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tüm animate-on-load elementlerini seç
+        const elements = document.querySelectorAll('.animate-on-load');
+        
+        // Her elemente show class'ını ekle
+        elements.forEach(element => {
+            element.classList.add('show');
+        });
+    });
+</script>

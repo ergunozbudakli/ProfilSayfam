@@ -1,0 +1,330 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<!DOCTYPE html>
+<html lang="@System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName" data-view="desktop">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - Ergün Özbudaklı</title>
+    <link rel="icon" href="~/assets/images/pngwing.com.png" type="image/x-icon" />
+    <meta name="google-site-verification" content="1jvPn-5j1a-OipMleT0avBTpMDFQf4EDti-cCD4qZ-0" />
+    
+    <!-- Ortak CSS'ler -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link href="~/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    @await RenderSectionAsync("Styles", required: false)
+    <style>
+        body #home header .main-nav .language-selector {
+            flex: 0 0 auto !important;
+            display: flex !important;
+            align-items: center !important;
+            margin-right: 2rem !important;
+            position: relative !important;
+            height: 100% !important;
+            z-index: 1000 !important;
+        }
+
+        body #home header .main-nav .language-selector .current-lang {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            padding: 0.4rem 0.8rem !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 2rem !important;
+            cursor: pointer !important;
+            transition: var(--transition) !important;
+        }
+
+        body #home header .main-nav .language-selector .current-lang:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        body #home header .main-nav .language-selector .current-lang img {
+            width: 16px !important;
+            height: 16px !important;
+            border-radius: 2px !important;
+            object-fit: cover !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        body #home header .main-nav .language-selector .current-lang span {
+            color: #fff !important;
+            font-size: 0.85rem !important;
+            font-weight: 500 !important;
+        }
+
+        body #home header .main-nav .language-selector .current-lang i {
+            color: #fff !important;
+            font-size: 0.75rem !important;
+        }
+
+        body #home header .main-nav .language-selector .lang-dropdown {
+            position: absolute !important;
+            top: 100% !important;
+            right: 0 !important;
+            background: var(--dark-background) !important;
+            border-radius: 0.5rem !important;
+            padding: 0.4rem !important;
+            box-shadow: var(--shadow) !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: translate(0, 0) scale(0.95) !important;
+            transition: var(--transition) !important;
+            z-index: 1001 !important;
+            min-width: 150px !important;
+            margin-top: 0.5rem !important;
+        }
+
+        body #home header .main-nav .language-selector .lang-dropdown.show {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translate(0, 0) scale(1) !important;
+        }
+
+        body #home header .main-nav .language-selector .lang-dropdown::before {
+            content: '' !important;
+            position: absolute !important;
+            right: 1rem !important;
+            top: -6px !important;
+            transform: translateY(0) rotate(-45deg) !important;
+            border-width: 6px !important;
+            border-style: solid !important;
+            border-color: var(--dark-background) var(--dark-background) transparent transparent !important;
+            z-index: 1002 !important;
+        }
+
+        body #home header .main-nav .language-selector .lang-dropdown ul {
+            background: var(--dark-background) !important;
+            border-radius: 0.5rem !important;
+            overflow: hidden !important;
+        }
+
+        body #home header .main-nav .language-selector .lang-dropdown ul li {
+            padding: 0.4rem 0.8rem !important;
+            cursor: pointer !important;
+            transition: var(--transition) !important;
+        }
+
+        body #home header .main-nav .language-selector .lang-dropdown ul li:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        body #home header .main-nav .language-selector .lang-dropdown ul li a {
+            color: #fff !important;
+            font-size: 0.85rem !important;
+            font-weight: 500 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            white-space: nowrap !important;
+        }
+
+        body #home header .main-nav .language-selector .lang-dropdown ul li a img {
+            width: 16px !important;
+            height: 16px !important;
+            border-radius: 2px !important;
+            object-fit: cover !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        @@media screen and (max-width: 767.98px) {
+            body #home section .wrapper {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                flex: 0 0 100% !important;
+                padding: 1rem !important;
+            }
+            
+            body #home section .wrapper .left-wrapper,
+            body #home section .wrapper .right-wrapper {
+                position: relative !important;
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                float: none !important;
+                padding: 1rem !important;
+                flex: 0 0 100% !important;
+                transform: none !important;
+            }
+
+            body #home section .wrapper .right-wrapper {
+                margin-top: 2rem !important;
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                position: relative !important;
+                left: auto !important;
+                right: auto !important;
+            }
+
+            body #home section .wrapper .content {
+                padding: 0 !important;
+                margin: 0 !important;
+                position: static !important;
+            }
+
+            body #home section .wrapper .title {
+                margin: 1rem 0 !important;
+            }
+
+            body #home section .wrapper .resume-item {
+                margin-bottom: 2rem !important;
+                padding: 0 !important;
+            }
+
+            body #home section .wrapper .resume-item h2 {
+                font-size: 1.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            body #home section .wrapper .resume-item span {
+                font-size: 0.9rem !important;
+            }
+
+            body #home section .wrapper .resume-item p {
+                font-size: 0.9rem !important;
+                line-height: 1.5 !important;
+            }
+
+            body #home section .wrapper .right-wrapper ._yt_er_ol {
+                padding: 0 !important;
+                display: block !important;
+                position: static !important;
+            }
+
+            body #home section .wrapper .right-wrapper ._re_uy_iu {
+                margin: 1rem 0 !important;
+                display: block !important;
+                position: static !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="home">
+        <header>
+            <nav class="main-nav">
+                <div class="logo">
+                    <a href="@Url.Action("Index", "Home")" style="text-decoration: none; color: inherit;">
+                        <h2>Ergün Özbudaklı</h2>
+                    </a>
+                </div>
+                
+                <div class="language-selector">
+                    <div class="current-lang">
+                        @{
+                            var currentCulture = System.Globalization.CultureInfo.CurrentCulture;
+                            var flagCode = currentCulture.Name.Split('-')[1].ToLower();
+                        }
+                        <img src="/assets/images/flags/@(flagCode).png" alt="@currentCulture.NativeName">
+                        <span>@currentCulture.TwoLetterISOLanguageName.ToUpper()</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="lang-dropdown">
+                        <ul>
+                            <li>
+                                <a href="@Url.Action("Change", "Culture", new { culture = "tr-TR", returnUrl = Context.Request.Path })">
+                                    <img src="/assets/images/flags/tr.png" alt="Türkçe">
+                                    <span>Türkçe</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Change", "Culture", new { culture = "en-US", returnUrl = Context.Request.Path })">
+                                    <img src="/assets/images/flags/us.png" alt="English">
+                                    <span>English</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="social-media">
+                    <ul>
+                        <li>
+                            <a href="https://github.com/ergunozbudakli" target="_blank">
+                                <i class="bi bi-github"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/erg%C3%BCn-%C3%B6zbudakl%C4%B1-339b57136/" target="_blank">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div onclick="show_menu()" class="my-toogle">
+                    <!-- Boş div -->
+                </div>
+            </nav>
+        </header>
+        <main>
+            <section style="padding:0">
+                @RenderBody()
+            </section>
+        </main>
+    </div>
+
+    <!-- Ortak Scriptler -->
+    <script src="~/assets/js/jquery-3.2.1.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/script.js"></script>
+    <script src="~/js/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/assets/js/language.js"></script>
+
+    <!-- Sayfa Özel Scriptleri -->
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- Dil Değiştirme Scripti -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentLang = document.querySelector('.current-lang');
+            const dropdown = document.querySelector('.lang-dropdown');
+
+            console.log('Current Lang:', currentLang);
+            console.log('Dropdown:', dropdown);
+
+            // Dil seçici tıklama olayı
+            currentLang.addEventListener('click', function(e) {
+                console.log('Clicked on current-lang');
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Direkt olarak style ile görünürlüğü değiştir
+                if (dropdown.style.display === 'block') {
+                    dropdown.style.display = 'none';
+                    currentLang.classList.remove('active');
+                } else {
+                    dropdown.style.display = 'block';
+                    currentLang.classList.add('active');
+                }
+                
+                console.log('Dropdown display:', dropdown.style.display);
+            });
+
+            // Dışarı tıklandığında dropdown'ı kapat
+            document.addEventListener('click', function(e) {
+                if (!currentLang.contains(e.target)) {
+                    dropdown.style.display = 'none';
+                    currentLang.classList.remove('active');
+                }
+            });
+
+            // Mevcut dili ayarla
+            var currentCulture = '@System.Threading.Thread.CurrentThread.CurrentUICulture.Name';
+            var languageName = currentCulture === 'tr-TR' ? 'TR' : 'EN';
+            var flagSrc = currentCulture === 'tr-TR' ? '/assets/images/flags/tr.png' : '/assets/images/flags/us.png';
+            
+            document.querySelector('.current-lang span').textContent = languageName;
+            document.querySelector('.current-lang img').src = flagSrc;
+        });
+    </script>
+</body>
+</html>

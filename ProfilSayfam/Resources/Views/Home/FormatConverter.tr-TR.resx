@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="FormatConverter" xml:space="preserve">
+    <value>Format Dönüştürücü</value>
+  </data>
+  <data name="FormatConverterDescription" xml:space="preserve">
+    <value>Dosya formatlarını dönüştürmek için kullanabileceğiniz araç.</value>
+  </data>
+  <data name="PdfToWord" xml:space="preserve">
+    <value>PDF'den Word'e Dönüştür</value>
+  </data>
+  <data name="SelectPdfFile" xml:space="preserve">
+    <value>PDF Dosyası Seçin</value>
+  </data>
+  <data name="DragDropText" xml:space="preserve">
+    <value>Dosyayı sürükleyip bırakın veya seçmek için tıklayın</value>
+  </data>
+  <data name="Convert" xml:space="preserve">
+    <value>Dönüştür</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="Converting" xml:space="preserve">
+    <value>Dönüştürülüyor</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Başarılı</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Hata</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Uyarı</value>
+  </data>
+  <data name="PleaseSelectFile" xml:space="preserve">
+    <value>Lütfen bir dosya seçin</value>
+  </data>
+  <data name="OnlyPdfAllowed" xml:space="preserve">
+    <value>Lütfen sadece PDF dosyası yükleyin</value>
+  </data>
+  <data name="ConversionComplete" xml:space="preserve">
+    <value>Dönüştürme işlemi tamamlandı</value>
+  </data>
+  <data name="ConversionError" xml:space="preserve">
+    <value>Dönüştürme işlemi başarısız oldu</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Tamam</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+</root> 

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Welcome" xml:space="preserve">
+    <value>Hoş Geldiniz</value>
+  </data>
+  <data name="WelcomeToMyPage" xml:space="preserve">
+    <value>Sayfama Hoş Geldiniz</value>
+  </data>
+  <data name="HelloIAm" xml:space="preserve">
+    <value>Merhaba, Ben</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>İçerik</value>
+  </data>
+  <data name="AboutMe" xml:space="preserve">
+    <value>Hakkımda</value>
+  </data>
+  <data name="CurrentPosition" xml:space="preserve">
+    <value>Şu Anki Pozisyonum</value>
+  </data>
+  <data name="CurrentPositionText" xml:space="preserve">
+    <value>Yazılım mühendisi olarak 3+ yıllık deneyimim ile Full Stack Developer pozisyonlarında görev aldım. .NET Core, Angular, React, SQL Server ve Web API konularında güçlü teknik bilgiye sahibim. Şirket içi özel yazılımlar geliştirerek iş süreçlerini optimize ettim ve verimlilik artışı sağladım. Yeni bir pozisyonda bilgi ve deneyimlerimi kullanarak değer katmak için fırsatlar arıyorum.</value>
+  </data>
+  <data name="LastExperience" xml:space="preserve">
+    <value>Son İş Tecrübem</value>
+  </data>
+  <data name="AboutMeText1" xml:space="preserve">
+    <value>Efece Galvaniz firmasında Full Stack Developer olarak çalıştım.</value>
+  </data>
+  <data name="AboutMeText2" xml:space="preserve">
+    <value>Burada, Netsis programı ile entegre çalışan Nova adında şirkete özel bir yazılım geliştirdim.</value>
+  </data>
+  <data name="AboutMeText3" xml:space="preserve">
+    <value>Bu program sayesinde çalışanlar, stok takibi, müşteri takibi ve barkod sistemi ile canlı üretim takibi yapabildiler.</value>
+  </data>
+  <data name="AboutMeText4" xml:space="preserve">
+    <value>Uygulamamızın arka planında veritabanı olarak Microsoft SQL Server kullandık.</value>
+  </data>
+  <data name="AboutMeText5" xml:space="preserve">
+    <value>Geliştirdiğim Web Service (API) üzerinden SQL Server ile uygulamamız arasındaki veri iletişimini sağladık.</value>
+  </data>
+  <data name="AboutMeText6" xml:space="preserve">
+    <value>Her kullanıcının kendine özel hesabı ve yetki rolleri bulunmaktaydı. Bu yetkiler doğrultusunda kendi pozisyonlarına ait modüllere erişim sağlayabildiler.</value>
+  </data>
+  <data name="AboutMeText7" xml:space="preserve">
+    <value>Hedefim, çağın gerektirdiği tüm yenilikleri uygulama üzerinden şirket geneline yayarak, her geçen gün daha iyi performans ve artan şirket kârı elde etmekti.</value>
+  </data>
+  <data name="Skills" xml:space="preserve">
+    <value>Yeteneklerim</value>
+  </data>
+  <data name="WhatIDo" xml:space="preserve">
+    <value>Ne Yapıyorum</value>
+  </data>
+  <data name="Education" xml:space="preserve">
+    <value>Eğitim</value>
+  </data>
+  <data name="SoftwareEngineering" xml:space="preserve">
+    <value>Yazılım Mühendisliği</value>
+  </data>
+  <data name="HighSchool" xml:space="preserve">
+    <value>Lise</value>
+  </data>
+  <data name="Experience" xml:space="preserve">
+    <value>Deneyim</value>
+  </data>
+  <data name="SoftwareEngineer" xml:space="preserve">
+    <value>Yazılım Mühendisi</value>
+  </data>
+  <data name="SoftwareSupport" xml:space="preserve">
+    <value>Yazılım Destek Uzmanı</value>
+  </data>
+  <data name="Career" xml:space="preserve">
+    <value>Kariyer</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>İletişim</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>İsim</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Konu</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Mesaj</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Gönder</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Anasayfa</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Mesaj Gönder</value>
+  </data>
+  <data name="EfeceGalvaniz" xml:space="preserve">
+    <value>Efece Galvaniz</value>
+  </data>
+  <data name="EfeceGalvanizDescription" xml:space="preserve">
+    <value>Full Stack Developer olarak Netsis ile entegre çalışan özel bir yazılım geliştirdim.</value>
+  </data>
+  <data name="CSistem" xml:space="preserve">
+    <value>C Sistem</value>
+  </data>
+  <data name="CSistemDescription" xml:space="preserve">
+    <value>Belediye yazılımı konusunda belediye personeli ile yazılım ekibimiz arasındaki iletişimi ve koordinasyonu sağladım.</value>
+  </data>
+  <data name="Etiya" xml:space="preserve">
+    <value>Etiya Bilgi Teknolojileri</value>
+  </data>
+  <data name="EtiyaDescription" xml:space="preserve">
+    <value>Türk Telekom projemizde SQL sorguları üzerinden altyapısal destek sağladım.</value>
+  </data>
+  <data name="FormatConverter" xml:space="preserve">
+    <value>Format Dönüştürücü</value>
+  </data>
+  <data name="FormatConverterDescription" xml:space="preserve">
+    <value>PDF dosyalarınızı Word formatına dönüştürebileceğiniz kullanıcı dostu bir araç.</value>
+  </data>
+  <data name="FormatConverterFeedback" xml:space="preserve">
+    <value>Sürekli gelişen bu projede, PDF dosyalarının Word formatına en doğru şekilde dönüştürülmesi için çalışmalarım devam etmektedir. Dönüştürme işlemi sırasında karşılaştığınız sorunları iletişim bölümünden paylaşmanız, projenin gelişimine değerli katkılar sağlayacaktır.</value>
+  </data>
+  <data name="SkillsText1" xml:space="preserve">
+    <value>• .NET Core MVC, Web API ve Entity Framework Core kullanarak modern web uygulamaları geliştirme</value>
+  </data>
+  <data name="SkillsText2" xml:space="preserve">
+    <value>• Microsoft SQL Server, T-SQL, Stored Procedure ve Function geliştirme konusunda ileri seviye deneyim</value>
+  </data>
+  <data name="SkillsText3" xml:space="preserve">
+    <value>• Angular ve React gibi modern frontend teknolojileri ile kullanıcı arayüzü geliştirme</value>
+  </data>
+  <data name="SkillsText4" xml:space="preserve">
+    <value>• jQuery ve JavaScript ile dinamik web uygulamaları oluşturma</value>
+  </data>
+  <data name="SkillsText5" xml:space="preserve">
+    <value>• SOLID prensipleri ve tasarım desenlerini uygulayarak sürdürülebilir kod yazma</value>
+  </data>
+  <data name="SkillsText6" xml:space="preserve">
+    <value>• Agile/Scrum metodolojileri ile proje yönetimi ve takım çalışması</value>
+  </data>
+  <data name="SkillsText7" xml:space="preserve">
+    <value>• Güçlü iletişim becerileri ve problem çözme yeteneği</value>
+  </data>
+  <data name="PersonnelTrackingSystem" xml:space="preserve">
+    <value>Şirket bünyesinde personel takip sisteminin geliştirilmesi ve implementasyonunda öncü rol aldım. Her çalışana özel olarak tasarlanan QR kod sistemi ile giriş-çıkış takibini modernize ettik. Tablet tabanlı okuyucular aracılığıyla personelin mesai takibini otomatize ederek, İnsan Kaynakları departmanının puantaj verilerini daha verimli ve hatasız bir şekilde yönetmesini sağladım. Bu sistem sayesinde manuel veri girişinden kaynaklanan hataları minimize ederken, personel devam takibinin dijital ortamda güvenli ve şeffaf bir şekilde yapılmasını mümkün kıldım.</value>
+  </data>
+  <data name="WebHelpDescription" xml:space="preserve">
+    <value>LEIA projesinde yazılım destek uzmanı olarak görev aldım. Bu projede iPhone müşterilerine teknik destek sağlayıp, gerektiğinde İrlanda'daki yazılım ekibi ile koordinasyon kurarak sorunlara çözüm getiriyorduk. Müşteri memnuniyeti odaklı çalışarak, teknik sorunların hızlı ve etkili bir şekilde çözülmesini sağladım.</value>
+  </data>
+  <data name="ReferenceProjects" xml:space="preserve">
+    <value>Referans Projelerim</value>
+  </data>
+  <data name="ReferenceProjectsDescription" xml:space="preserve">
+    <value>Aktif olarak geliştirdiğim ve canlı ortamda deneyimleyebileceğiniz projelerim. Bu çalışmalar, modern teknolojiler ve en iyi yazılım pratiklerini kullanarak geliştirdiğim profesyonel uygulamaları içermektedir.</value>
+  </data>
+  <data name="FreeToUse" xml:space="preserve">
+    <value>Ücretsiz Kullanım</value>
+  </data>
+  <data name="HighAccuracy" xml:space="preserve">
+    <value>Yüksek Doğruluk</value>
+  </data>
+  <data name="InstantConversion" xml:space="preserve">
+    <value>Anında Dönüşüm</value>
+  </data>
+  <data name="TryConverter" xml:space="preserve">
+    <value>Ücretsiz PDF'den Word'e dönüştürücüyü deneyin</value>
+  </data>
+</root> 

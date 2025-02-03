@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="WelcomeToMyPage" xml:space="preserve">
+    <value>Welcome to My Page</value>
+  </data>
+  <data name="HelloIAm" xml:space="preserve">
+    <value>Hello, I am</value>
+  </data>
+  <data name="AboutMe" xml:space="preserve">
+    <value>About Me</value>
+  </data>
+  <data name="CurrentPosition" xml:space="preserve">
+    <value>Current Position</value>
+  </data>
+  <data name="CurrentPositionText" xml:space="preserve">
+    <value>With 3+ years of experience as a Software Engineer, I have worked in Full Stack Developer positions. I have strong technical knowledge in .NET Core, Angular, React, SQL Server, and Web APIs. I have optimized business processes and increased efficiency by developing in-house custom software. I am seeking opportunities to add value in a new position using my knowledge and experience.</value>
+  </data>
+  <data name="LastExperience" xml:space="preserve">
+    <value>Last Experience</value>
+  </data>
+  <data name="AboutMeText1" xml:space="preserve">
+    <value>I worked as a Full Stack Developer at Efece Galvaniz.</value>
+  </data>
+  <data name="AboutMeText2" xml:space="preserve">
+    <value>Here, I developed a custom software called Nova that integrated with the Netsis program.</value>
+  </data>
+  <data name="AboutMeText3" xml:space="preserve">
+    <value>Through this program, employees were able to track inventory, customer information, and monitor live production using a barcode system.</value>
+  </data>
+  <data name="AboutMeText4" xml:space="preserve">
+    <value>We used Microsoft SQL Server as the database backend for our application.</value>
+  </data>
+  <data name="AboutMeText5" xml:space="preserve">
+    <value>I developed a Web Service (API) to facilitate data communication between SQL Server and our application.</value>
+  </data>
+  <data name="AboutMeText6" xml:space="preserve">
+    <value>Each user had their own account and authorization roles. They could access modules specific to their positions based on these permissions.</value>
+  </data>
+  <data name="AboutMeText7" xml:space="preserve">
+    <value>My goal was to improve company performance and increase profits by implementing modern innovations throughout the organization through the application.</value>
+  </data>
+  <data name="Skills" xml:space="preserve">
+    <value>Skills</value>
+  </data>
+  <data name="SkillsText1" xml:space="preserve">
+    <value>• Developing modern web applications using .NET Core MVC, Web API, and Entity Framework Core</value>
+  </data>
+  <data name="SkillsText2" xml:space="preserve">
+    <value>• Advanced experience in Microsoft SQL Server, T-SQL, Stored Procedures, and Functions</value>
+  </data>
+  <data name="SkillsText3" xml:space="preserve">
+    <value>• User interface development with modern frontend technologies like Angular and React</value>
+  </data>
+  <data name="SkillsText4" xml:space="preserve">
+    <value>• Creating dynamic web applications with jQuery and JavaScript</value>
+  </data>
+  <data name="SkillsText5" xml:space="preserve">
+    <value>• Writing sustainable code by applying SOLID principles and design patterns</value>
+  </data>
+  <data name="SkillsText6" xml:space="preserve">
+    <value>• Project management and teamwork with Agile/Scrum methodologies</value>
+  </data>
+  <data name="SkillsText7" xml:space="preserve">
+    <value>• Strong communication skills and problem-solving ability</value>
+  </data>
+  <data name="WhatIDo" xml:space="preserve">
+    <value>What I Do</value>
+  </data>
+  <data name="Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="SoftwareEngineering" xml:space="preserve">
+    <value>Software Engineering</value>
+  </data>
+  <data name="HighSchool" xml:space="preserve">
+    <value>High School</value>
+  </data>
+  <data name="Experience" xml:space="preserve">
+    <value>Experience</value>
+  </data>
+  <data name="SoftwareEngineer" xml:space="preserve">
+    <value>Software Engineer</value>
+  </data>
+  <data name="SoftwareSupport" xml:space="preserve">
+    <value>Software Support Specialist</value>
+  </data>
+  <data name="Career" xml:space="preserve">
+    <value>Career</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Send Message</value>
+  </data>
+  <data name="EfeceGalvaniz" xml:space="preserve">
+    <value>Efece Galvaniz</value>
+  </data>
+  <data name="EfeceGalvanizDescription" xml:space="preserve">
+    <value>As a Full Stack Developer, I developed a custom software integrated with Netsis.</value>
+  </data>
+  <data name="CSistem" xml:space="preserve">
+    <value>C Sistem</value>
+  </data>
+  <data name="CSistemDescription" xml:space="preserve">
+    <value>I facilitated communication and coordination between municipal staff and our software team regarding municipal software solutions.</value>
+  </data>
+  <data name="Etiya" xml:space="preserve">
+    <value>Etiya Information Technologies</value>
+  </data>
+  <data name="EtiyaDescription" xml:space="preserve">
+    <value>I provided infrastructure support through SQL queries in our Türk Telekom project.</value>
+  </data>
+  <data name="FormatConverter" xml:space="preserve">
+    <value>Format Converter</value>
+  </data>
+  <data name="FormatConverterDescription" xml:space="preserve">
+    <value>A user-friendly tool to convert your PDF files to Word format.</value>
+  </data>
+  <data name="FormatConverterFeedback" xml:space="preserve">
+    <value>This project is continuously evolving, and I am working to ensure the most accurate conversion of PDF files to Word format. Your feedback about any issues encountered during the conversion process through the contact section would be invaluable for the project's development.</value>
+  </data>
+  <data name="PersonnelTrackingSystem" xml:space="preserve">
+    <value>I took a leading role in the development and implementation of the personnel tracking system within the company. We modernized the entry-exit tracking with a QR code system specially designed for each employee. By automating personnel time tracking through tablet-based readers, I enabled the Human Resources department to manage timesheet data more efficiently and accurately. Through this system, I minimized errors from manual data entry while enabling secure and transparent digital tracking of personnel attendance.</value>
+  </data>
+  <data name="WebHelpDescription" xml:space="preserve">
+    <value>I served as a software support specialist in the LEIA project. In this project, we provided technical support to iPhone customers and coordinated with the software team in Ireland to resolve issues when needed. By focusing on customer satisfaction, I ensured that technical problems were resolved quickly and effectively.</value>
+  </data>
+  <data name="ReferenceProjects" xml:space="preserve">
+    <value>Reference Projects</value>
+  </data>
+  <data name="ReferenceProjectsDescription" xml:space="preserve">
+    <value>My actively developed projects that you can experience in a live environment. These works include professional applications developed using modern technologies and best software practices.</value>
+  </data>
+  <data name="FreeToUse" xml:space="preserve">
+    <value>Free to Use</value>
+  </data>
+  <data name="HighAccuracy" xml:space="preserve">
+    <value>High Accuracy</value>
+  </data>
+  <data name="InstantConversion" xml:space="preserve">
+    <value>Instant Conversion</value>
+  </data>
+  <data name="TryConverter" xml:space="preserve">
+    <value>Try our free PDF to Word converter</value>
+  </data>
+</root> 
