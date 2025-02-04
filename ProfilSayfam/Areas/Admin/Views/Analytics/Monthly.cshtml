@@ -1,0 +1,126 @@
+@model List<ProfilSayfam.Services.MonthlyStats>
+
+@{
+    ViewData["Title"] = "Aylık İstatistikler";
+    var currentYear = DateTime.Now.Year;
+    var monthNames = new[] { "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", 
+                            "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık" };
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Yıl Seçin</h5>
+                    <form method="get" class="row g-3">
+                        <div class="col-md-4">
+                            <select class="form-select" id="year" name="year">
+                                @for (int year = currentYear; year >= currentYear - 5; year--)
+                                {
+                                    <option value="@year" selected="@(year == ViewBag.Year)">@year</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary">Filtrele</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Aylık Ziyaret Grafiği</h5>
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Detaylı Aylık İstatistikler</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Ay</th>
+                                    <th>Sayfa Görüntüleme</th>
+                                    <th>Tekil Ziyaretçi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var stat in Model.OrderByDescending(x => x.Month))
+                                {
+                                    <tr>
+                                        <td>@monthNames[stat.Month - 1] @stat.Year</td>
+                                        <td>@stat.PageViews</td>
+                                        <td>@stat.UniqueVisitors</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var data = @Html.Raw(Json.Serialize(Model.OrderBy(x => x.Month)));
+            var monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", 
+                            "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+
+            new Chart(document.getElementById('monthlyChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.map(x => monthNames[x.month - 1]),
+                    datasets: [
+                        {
+                            label: 'Sayfa Görüntüleme',
+                            data: data.map(x => x.pageViews),
+                            backgroundColor: 'rgba(78, 115, 223, 0.8)',
+                            borderColor: '#4e73df',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Tekil Ziyaretçi',
+                            data: data.map(x => x.uniqueVisitors),
+                            backgroundColor: 'rgba(28, 200, 138, 0.8)',
+                            borderColor: '#1cc88a',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Aylık Ziyaretçi İstatistikleri'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+} 

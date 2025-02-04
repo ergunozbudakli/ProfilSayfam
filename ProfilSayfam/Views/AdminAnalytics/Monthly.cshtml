@@ -1,0 +1,111 @@
+@model List<ProfilSayfam.Services.MonthlyStats>
+
+@{
+    ViewData["Title"] = "Aylık İstatistikler";
+    var currentYear = DateTime.Now.Year;
+}
+
+<div class="container-fluid mt-4">
+    <h2 class="mb-4">Aylık İstatistikler</h2>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label for="year" class="form-label">Yıl</label>
+                    <select class="form-select" id="year" name="year">
+                        @for (int year = currentYear; year >= currentYear - 5; year--)
+                        {
+                            <option value="@year" selected="@(year == ViewBag.Year ? "selected" : null)">@year</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">&nbsp;</label>
+                    <button type="submit" class="btn btn-primary d-block">Filtrele</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <canvas id="monthlyChart"></canvas>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Ay</th>
+                            <th>Sayfa Görüntüleme</th>
+                            <th>Tekil Ziyaretçi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var stat in Model.OrderByDescending(x => x.Year).ThenByDescending(x => x.Month))
+                        {
+                            <tr>
+                                <td>@(new DateTime(stat.Year, stat.Month, 1).ToString("MMMM yyyy"))</td>
+                                <td>@stat.PageViews</td>
+                                <td>@stat.UniqueVisitors</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var data = @Html.Raw(Json.Serialize(Model.OrderBy(x => x.Month)));
+            var monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", 
+                            "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+
+            new Chart(document.getElementById('monthlyChart'), {
+                type: 'line',
+                data: {
+                    labels: data.map(x => monthNames[x.month - 1]),
+                    datasets: [
+                        {
+                            label: 'Sayfa Görüntüleme',
+                            data: data.map(x => x.pageViews),
+                            borderColor: '#36A2EB',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'Tekil Ziyaretçi',
+                            data: data.map(x => x.uniqueVisitors),
+                            borderColor: '#FF6384',
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Aylık Ziyaretçi İstatistikleri'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+} 

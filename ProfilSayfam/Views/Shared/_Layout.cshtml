@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link href="~/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
     @await RenderSectionAsync("Styles", required: false)
     <style>
@@ -204,6 +205,105 @@
                 position: static !important;
             }
         }
+
+        .social-media-fixed {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            pointer-events: none;
+        }
+
+        .social-media-fixed ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            pointer-events: all;
+        }
+
+        .social-media-fixed ul li {
+            margin: 10px 0;
+        }
+
+        .social-media-fixed ul li a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .social-media-fixed ul li a:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+            color: #fff;
+        }
+
+        @@media screen and (max-width: 767.98px) {
+            body {
+                padding-bottom: 0 !important;
+            }
+
+            .social-media-fixed {
+                position: static !important;
+                transform: none !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                background: #000 !important;
+                padding: 1rem 0 !important;
+                margin-top: 0 !important;
+                box-shadow: none !important;
+            }
+
+            .social-media-fixed ul {
+                display: flex !important;
+                gap: 20px !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+                padding-top: 1rem !important;
+            }
+
+            .social-media-fixed ul li {
+                margin: 0 !important;
+            }
+
+            .social-media-fixed ul li a {
+                width: 35px !important;
+                height: 35px !important;
+                font-size: 18px !important;
+                background: rgba(255, 255, 255, 0.1) !important;
+            }
+
+            .social-media-fixed ul li a:hover {
+                background: rgba(255, 255, 255, 0.2) !important;
+                transform: scale(1.1) !important;
+            }
+
+            #reference-projects {
+                padding-bottom: 0 !important;
+            }
+        }
+
+        /* Dil seçici için z-index düzeltmesi */
+        .language-selector {
+            z-index: 1000 !important;
+        }
+        
+        .lang-dropdown {
+            z-index: 1001 !important;
+        }
     </style>
 </head>
 <body>
@@ -244,21 +344,6 @@
                     </div>
                 </div>
 
-                <div class="social-media">
-                    <ul>
-                        <li>
-                            <a href="https://github.com/ergunozbudakli" target="_blank">
-                                <i class="bi bi-github"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/in/erg%C3%BCn-%C3%B6zbudakl%C4%B1-339b57136/" target="_blank">
-                                <i class="bi bi-linkedin"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
                 <div onclick="show_menu()" class="my-toogle">
                     <!-- Boş div -->
                 </div>
@@ -269,6 +354,20 @@
                 @RenderBody()
             </section>
         </main>
+    </div>
+    <div class="social-media-fixed">
+        <ul>
+            <li>
+                <a href="https://github.com/ergunozbudakli" target="_blank" title="GitHub">
+                    <i class="bi bi-github"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.linkedin.com/in/ergunozbudakli" target="_blank" title="LinkedIn">
+                    <i class="bi bi-linkedin"></i>
+                </a>
+            </li>
+        </ul>
     </div>
 
     <!-- Ortak Scriptler -->

@@ -1,0 +1,115 @@
+@model ProfilSayfam.Services.DashboardStats
+
+@{
+    ViewData["Title"] = "Analytics Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Toplam Görüntülenme</h6>
+                            <h2 class="mt-2 mb-0">@Model.TotalPageViews</h2>
+                        </div>
+                        <div>
+                            <i class="fas fa-eye fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Tekil Ziyaretçi</h6>
+                            <h2 class="mt-2 mb-0">@Model.UniqueVisitors</h2>
+                        </div>
+                        <div>
+                            <i class="fas fa-users fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Bugünkü Görüntülenme</h6>
+                            <h2 class="mt-2 mb-0">@Model.DailyPageViews</h2>
+                        </div>
+                        <div>
+                            <i class="fas fa-chart-line fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="card-title mb-0">Bu Ay Görüntülenme</h6>
+                            <h2 class="mt-2 mb-0">@Model.MonthlyPageViews</h2>
+                        </div>
+                        <div>
+                            <i class="fas fa-calendar-alt fa-3x opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Hızlı Erişim</h5>
+                    <div class="list-group">
+                        <a asp-action="Locations" class="list-group-item list-group-item-action">
+                            <i class="fas fa-map-marker-alt me-2"></i>Lokasyon İstatistikleri
+                        </a>
+                        <a asp-action="Browsers" class="list-group-item list-group-item-action">
+                            <i class="fas fa-globe me-2"></i>Tarayıcı İstatistikleri
+                        </a>
+                        <a asp-action="Daily" class="list-group-item list-group-item-action">
+                            <i class="fas fa-calendar-day me-2"></i>Günlük İstatistikler
+                        </a>
+                        <a asp-action="Monthly" class="list-group-item list-group-item-action">
+                            <i class="fas fa-calendar-alt me-2"></i>Aylık İstatistikler
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Yıllık İstatistikler</h5>
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            <h6 class="mb-0">Yıllık Görüntülenme</h6>
+                            <h3 class="mt-2 mb-0">@Model.YearlyPageViews</h3>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">Toplam Dönüşüm</h6>
+                            <h3 class="mt-2 mb-0">@Model.TotalConversions</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

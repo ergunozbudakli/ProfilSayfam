@@ -1,0 +1,103 @@
+@model IEnumerable<dynamic>
+@{
+    ViewData["Title"] = "Ziyaretçi Konumları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Ziyaretçi Konumları</h3>
+                </div>
+                <div class="card-body">
+                    <div id="map" style="height: 500px; width: 100%; margin-bottom: 20px;"></div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Ülke</th>
+                                    <th>Şehir</th>
+                                    <th>IP Adresi</th>
+                                    <th>Ziyaret Tarihi</th>
+                                    <th>Konum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var visit in Model)
+                                {
+                                    <tr>
+                                        <td>@visit.Country</td>
+                                        <td>@visit.City</td>
+                                        <td>@visit.IpAddress</td>
+                                        <td>@visit.VisitedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                        <td>@visit.Latitude, @visit.Longitude</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.GoogleMapsApiKey"></script>
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 2,
+                center: { lat: 0, lng: 0 },
+                styles: [
+                    {
+                        featureType: "all",
+                        elementType: "labels",
+                        stylers: [{ visibility: "on" }]
+                    }
+                ]
+            });
+
+            var visits = @Html.Raw(Json.Serialize(Model));
+            var bounds = new google.maps.LatLngBounds();
+            
+            visits.forEach(function(visit) {
+                var position = { 
+                    lat: parseFloat(visit.latitude), 
+                    lng: parseFloat(visit.longitude) 
+                };
+                
+                var marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: visit.city + ', ' + visit.country
+                });
+
+                bounds.extend(position);
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: `
+                        <div>
+                            <h6>${visit.city}, ${visit.country}</h6>
+                            <p>IP: ${visit.ipAddress}</p>
+                            <p>Tarih: ${new Date(visit.visitedAt).toLocaleString()}</p>
+                        </div>
+                    `
+                });
+
+                marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                });
+            });
+
+            if (visits.length > 0) {
+                map.fitBounds(bounds);
+            }
+        }
+
+        window.onload = initMap;
+    </script>
+} 

@@ -15,6 +15,11 @@ using A = DocumentFormat.OpenXml.Drawing;
 using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 using System.IO.Compression;
+using Microsoft.EntityFrameworkCore;
+
+#if WINDOWS
+using System.Drawing.Drawing2D;
+#endif
 
 namespace ProfilSayfam.Controllers
 {
@@ -24,20 +29,33 @@ namespace ProfilSayfam.Controllers
         private const double SPACE_THRESHOLD = 5.0;
         private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IAnalyticsService _analyticsService;
+        private readonly IEmailSender _emailSender;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IWebHostEnvironment webHostEnvironment,
+            IAnalyticsService analyticsService,
+            IEmailSender emailSender,
+            IConfiguration configuration)
         {
             _logger = logger;
             _webHostEnvironment = webHostEnvironment;
+            _analyticsService = analyticsService;
+            _emailSender = emailSender;
+            _configuration = configuration;
         }
 
         public IActionResult Index()
         {
+            _analyticsService.TrackPageView("Index");
             return View();
         }
 
         public IActionResult FormatConverter()
         {
+            _analyticsService.TrackPageView("FormatConverter");
             return View();
         }
 
@@ -46,6 +64,8 @@ namespace ProfilSayfam.Controllers
         [RequestSizeLimit(104857600)] // 100 MB
         public async Task<IActionResult> ConvertPdfToWord([FromForm] IFormFile file)
         {
+            _analyticsService.TrackConversion("processing");
+
             try
             {
                 if (file == null || file.Length == 0)
@@ -362,13 +382,58 @@ namespace ProfilSayfam.Controllers
 
                 // Oluşturulan Word belgesini gönder
                 var fileBytes = await System.IO.File.ReadAllBytesAsync(docxPath);
+                _analyticsService.TrackConversion("success");
                 return File(fileBytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", 
                     Path.GetFileName(docxPath));
             }
             catch (Exception ex)
             {
                 _logger.LogError($"PDF dönüştürme hatası: {ex.Message}");
+                _analyticsService.TrackConversion("failed");
                 return BadRequest($"Dönüştürme işlemi başarısız oldu: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendMail([FromBody] MailModel model)
+        {
+            try
+            {
+                _logger.LogInformation($"Mail gönderme isteği alındı: {model.Mail} adresinden");
+
+                if (!ModelState.IsValid)
+                {
+                    _logger.LogWarning("Model validation hatası");
+                    return BadRequest("Geçersiz form verisi");
+                }
+
+                var body = $"Gönderen: {model.Name}\n" +
+                          $"Email: {model.Mail}\n" +
+                          $"Konu: {model.Subject}\n\n" +
+                          $"Mesaj:\n{model.Message}";
+
+                _logger.LogInformation("Mail gönderiliyor...");
+                
+                try
+                {
+                    await _emailSender.SendEmailAsync(
+                        _configuration["EmailSettings:RecipientEmail"]!,
+                        $"İletişim Formu: {model.Subject}",
+                        body
+                    );
+                    _logger.LogInformation("Mail başarıyla gönderildi");
+                    return Ok("BAŞARILI");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Mail gönderirken hata oluştu");
+                    return BadRequest($"Mail gönderme hatası: {ex.Message}");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "SendMail action'ında beklenmeyen hata");
+                return BadRequest($"Beklenmeyen hata: {ex.Message}");
             }
         }
 
@@ -1280,5 +1345,67 @@ namespace ProfilSayfam.Controllers
                 return null;
             }
         }
+
+        private byte[] ResizeImage(byte[] imageBytes, int maxWidth, int maxHeight)
+        {
+#if WINDOWS
+            using (var ms = new MemoryStream(imageBytes))
+            using (var image = Image.FromStream(ms))
+            {
+                // Mevcut boyutları al
+                var ratioX = (double)maxWidth / image.Width;
+                var ratioY = (double)maxHeight / image.Height;
+                var ratio = Math.Min(ratioX, ratioY);
+
+                var newWidth = (int)(image.Width * ratio);
+                var newHeight = (int)(image.Height * ratio);
+
+                using (var newImage = new Bitmap(newWidth, newHeight, PixelFormat.Format24bppRgb))
+                using (var graphics = Graphics.FromImage(newImage))
+                {
+                    graphics.Clear(Color.White);
+                    graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    graphics.DrawImage(image, 0, 0, newWidth, newHeight);
+
+                    using (var ms2 = new MemoryStream())
+                    {
+                        newImage.Save(ms2, ImageFormat.Jpeg);
+                        return ms2.ToArray();
+                    }
+                }
+            }
+#else
+            return imageBytes; // Windows dışı platformlarda orijinal görüntüyü döndür
+#endif
+        }
+
+        private byte[] CompressImage(byte[] imageBytes, long quality)
+        {
+#if WINDOWS
+            using (var ms = new MemoryStream(imageBytes))
+            using (var image = Image.FromStream(ms, true, true))
+            {
+                var jpegEncoder = GetEncoder(ImageFormat.Jpeg);
+                var encoderParameters = new EncoderParameters(1);
+                encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, quality);
+
+                using (var ms2 = new MemoryStream())
+                {
+                    image.Save(ms2, jpegEncoder, encoderParameters);
+                    return ms2.ToArray();
+                }
+            }
+#else
+            return imageBytes; // Windows dışı platformlarda orijinal görüntüyü döndür
+#endif
+        }
+
+#if WINDOWS
+        private ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            var codecs = ImageCodecInfo.GetImageEncoders();
+            return codecs.FirstOrDefault(codec => codec.FormatID == format.Guid);
+        }
+#endif
     }
 }

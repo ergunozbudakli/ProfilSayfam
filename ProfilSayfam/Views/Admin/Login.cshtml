@@ -1,0 +1,162 @@
+@{
+    ViewData["Title"] = "Admin Login";
+    Layout = "_AdminLayout";
+}
+
+@section Styles {
+    <style>
+        #admin-login {
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-form-wrapper {
+            background: rgba(19, 19, 19, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .form-floating {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #fff !important;
+            height: 3.5rem !important;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding-top: 1.625rem !important;
+            padding-bottom: .625rem !important;
+        }
+
+        .form-floating > label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 1rem .75rem;
+            overflow: hidden;
+            text-align: start;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            pointer-events: none;
+            border: 1px solid transparent;
+            transform-origin: 0 0;
+            transition: opacity .1s ease-in-out,transform .1s ease-in-out;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-floating > .form-control:focus ~ label,
+        .form-floating > .form-control:not(:placeholder-shown) ~ label {
+            opacity: 1;
+            transform: scale(.85) translateY(-1.5rem);
+            padding: 0;
+            color: #fff;
+            margin-left: 0;
+            height: auto;
+            background: transparent;
+            z-index: 1;
+        }
+
+        .form-floating > .form-control::placeholder {
+            color: transparent;
+        }
+
+        .btn-send {
+            background: #E31C25;
+            color: #fff;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-send:hover {
+            background: #ff1f2a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
+        }
+
+        .btn-send i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-send:hover i {
+            transform: translateX(5px);
+        }
+
+        .heading h2 {
+            color: #E31C25;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .heading-line {
+            width: 60px;
+            height: 2px;
+            background: #E31C25;
+            margin: 0 auto;
+        }
+    </style>
+}
+
+<section id="admin-login">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="contact-form-wrapper">
+                    <div class="heading text-center mb-4">
+                        <h2>Admin Girişi</h2>
+                        <div class="heading-line"></div>
+                    </div>
+                    <form asp-action="Login" asp-controller="Admin" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                        
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                @Html.ValidationSummary()
+                            </div>
+                        }
+
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder=" " required>
+                                    <label for="username">Kullanıcı Adı</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder=" " required>
+                                    <label for="password">Şifre</label>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn-send">
+                                    <span>Giriş Yap</span>
+                                    <i class="bi bi-box-arrow-in-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

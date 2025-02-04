@@ -1,0 +1,120 @@
+@model List<ProfilSayfam.Services.DailyStats>
+
+@{
+    ViewData["Title"] = "Günlük İstatistikler";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <form method="get" class="row g-3">
+                        <div class="col-md-4">
+                            <label for="startDate" class="form-label">Başlangıç Tarihi</label>
+                            <input type="date" class="form-control" id="startDate" name="startDate" value="@ViewBag.StartDate">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="endDate" class="form-label">Bitiş Tarihi</label>
+                            <input type="date" class="form-control" id="endDate" name="endDate" value="@ViewBag.EndDate">
+                        </div>
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary">Filtrele</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="dailyChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tarih</th>
+                                    <th>Sayfa Görüntüleme</th>
+                                    <th>Tekil Ziyaretçi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var stat in Model.OrderByDescending(x => x.Date))
+                                {
+                                    <tr>
+                                        <td>@stat.Date.ToString("dd.MM.yyyy")</td>
+                                        <td>@stat.PageViews</td>
+                                        <td>@stat.UniqueVisitors</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var data = @Html.Raw(Json.Serialize(Model.OrderBy(x => x.Date)));
+
+            new Chart(document.getElementById('dailyChart'), {
+                type: 'line',
+                data: {
+                    labels: data.map(x => new Date(x.date).toLocaleDateString('tr-TR')),
+                    datasets: [
+                        {
+                            label: 'Sayfa Görüntüleme',
+                            data: data.map(x => x.pageViews),
+                            borderColor: '#4e73df',
+                            backgroundColor: 'rgba(78, 115, 223, 0.1)',
+                            borderWidth: 2,
+                            fill: true
+                        },
+                        {
+                            label: 'Tekil Ziyaretçi',
+                            data: data.map(x => x.uniqueVisitors),
+                            borderColor: '#1cc88a',
+                            backgroundColor: 'rgba(28, 200, 138, 0.1)',
+                            borderWidth: 2,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Günlük Ziyaretçi İstatistikleri'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+} 

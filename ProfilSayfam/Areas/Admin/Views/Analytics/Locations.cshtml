@@ -1,0 +1,133 @@
+@model List<ProfilSayfam.Models.Analytics.LocationStats>
+@{
+    ViewData["Title"] = "Ziyaretçi Konumları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .leaflet-popup-content {
+        color: #333;
+    }
+    .location-card {
+        border: none;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .location-card .card-header {
+        background-color: #4e73df;
+        color: white;
+        border-bottom: none;
+    }
+    .location-table {
+        color: #333;
+        font-size: 14px;
+    }
+    .location-table th {
+        background-color: #4e73df !important;
+        color: white !important;
+        font-weight: 600;
+        border-color: #4e73df;
+    }
+    .location-table td {
+        color: #2f2f2f;
+        background-color: #fff;
+        border-color: #e3e6f0;
+        padding: 12px;
+        vertical-align: middle;
+    }
+    .location-table tbody tr:hover td {
+        background-color: #f8f9fc;
+    }
+    #map {
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card location-card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        Ziyaretçi Konumları
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div id="map" style="height: 500px; width: 100%; margin-bottom: 20px;"></div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover location-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Ülke</th>
+                                    <th class="text-center">Şehir</th>
+                                    <th class="text-center">Bölge</th>
+                                    <th class="text-center">Ziyaret Sayısı</th>
+                                    <th class="text-center">Konum</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var location in Model.OrderByDescending(x => x.VisitCount))
+                                {
+                                    <tr>
+                                        <td>@location.Country</td>
+                                        <td>@location.City</td>
+                                        <td>@location.Region</td>
+                                        <td class="text-center">@location.VisitCount</td>
+                                        <td class="text-center">@location.Latitude.ToString("F6"), @location.Longitude.ToString("F6")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var locations = @Html.Raw(Json.Serialize(Model));
+            
+            // Haritayı başlat
+            var map = L.map('map').setView([0, 0], 2);
+            
+            // OpenStreetMap katmanını ekle - Daha koyu renkli harita stili
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                maxZoom: 19
+            }).addTo(map);
+
+            var bounds = L.latLngBounds();
+            
+            // Her konum için işaretleyici ekle
+            locations.forEach(function(loc) {
+                if (loc.latitude && loc.longitude) {
+                    var marker = L.marker([loc.latitude, loc.longitude]).addTo(map);
+                    
+                    // Açılır pencere içeriği
+                    var popupContent = `
+                        <div style="color: #333; padding: 5px;">
+                            <h6 style="margin: 0 0 8px 0; color: #4e73df;">${loc.city}, ${loc.country}</h6>
+                            <p style="margin: 0 0 5px 0;"><strong>Bölge:</strong> ${loc.region}</p>
+                            <p style="margin: 0;"><strong>Ziyaret:</strong> ${loc.visitCount}</p>
+                        </div>
+                    `;
+                    
+                    marker.bindPopup(popupContent);
+                    bounds.extend([loc.latitude, loc.longitude]);
+                }
+            });
+
+            // Tüm işaretleyicileri görüntüle
+            if (bounds.isValid()) {
+                map.fitBounds(bounds);
+            }
+        });
+    </script>
+} 

@@ -1,0 +1,298 @@
+@{
+    ViewData["Title"] = "Admin Panel";
+    Layout = "_AdminLayout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="admin-content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1>Admin Panel</h1>
+                    <form asp-action="Logout" asp-controller="Admin" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn-send">
+                            <span>Çıkış Yap</span>
+                            <i class="bi bi-box-arrow-right ms-2"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- İstatistik Kartları -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-eye"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="activeUsers">0</h3>
+                                <p>Aktif Kullanıcı</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="todayVisits">0</h3>
+                                <p>Bugünkü Ziyaret</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalConversions">0</h3>
+                                <p>Toplam Dönüşüm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-graph-up"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="conversionRate">0%</h3>
+                                <p>Dönüşüm Oranı</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grafik Alanı -->
+                <div class="row g-4">
+                    <div class="col-md-8">
+                        <div class="chart-card">
+                            <h4>Ziyaretçi Grafiği</h4>
+                            <canvas id="visitorChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="chart-card">
+                            <h4>Dönüşüm Dağılımı</h4>
+                            <canvas id="conversionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.css" rel="stylesheet">
+    <style>
+        .admin-content {
+            background: rgba(19, 19, 19, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        h1 {
+            color: #E31C25;
+            font-weight: 600;
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .stat-card {
+            background: rgba(25, 25, 25, 0.95);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(227, 28, 37, 0.2);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(227, 28, 37, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #E31C25;
+        }
+
+        .stat-info h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .stat-info p {
+            color: #9e9e9e;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .chart-card {
+            background: rgba(25, 25, 25, 0.95);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .chart-card h4 {
+            color: #E31C25;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .btn-send {
+            background: #E31C25;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-send:hover {
+            background: #ff1f2a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(227, 28, 37, 0.3);
+        }
+
+        .btn-send i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-send:hover i {
+            transform: translateX(5px);
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+        // Grafikleri oluştur
+        const visitorChart = createVisitorChart();
+        const conversionChart = createConversionChart();
+
+        // Grafikleri oluşturan fonksiyonlar
+        function createVisitorChart() {
+            const ctx = document.getElementById('visitorChart').getContext('2d');
+            return new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+                    datasets: [{
+                        label: 'Ziyaretçi Sayısı',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0],
+                        borderColor: '#E31C25',
+                        backgroundColor: 'rgba(227, 28, 37, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#9e9e9e'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#9e9e9e'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createConversionChart() {
+            const ctx = document.getElementById('conversionChart').getContext('2d');
+            return new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Başarılı', 'Başarısız', 'İşlemde'],
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: [
+                            '#E31C25',
+                            '#333333',
+                            '#666666'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#9e9e9e'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Verileri güncelle
+        async function updateStats() {
+            try {
+                const response = await fetch('/Admin/GetAnalyticsData');
+                const data = await response.json();
+
+                // İstatistikleri güncelle
+                document.getElementById('activeUsers').textContent = data.activeUsers;
+                document.getElementById('todayVisits').textContent = data.todayVisits;
+                document.getElementById('totalConversions').textContent = data.totalConversions;
+                document.getElementById('conversionRate').textContent = data.conversionRate.toFixed(1) + '%';
+
+                // Grafikleri güncelle
+                visitorChart.data.datasets[0].data = data.hourlyVisits;
+                visitorChart.update();
+
+                conversionChart.data.datasets[0].data = data.conversionDistribution;
+                conversionChart.update();
+            } catch (error) {
+                console.error('Veri güncellenirken hata oluştu:', error);
+            }
+        }
+
+        // İlk yükleme ve periyodik güncelleme
+        updateStats();
+        setInterval(updateStats, 30000); // Her 30 saniyede bir güncelle
+    </script>
+} 

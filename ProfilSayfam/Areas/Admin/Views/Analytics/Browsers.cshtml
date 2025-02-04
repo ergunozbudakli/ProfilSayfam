@@ -1,0 +1,224 @@
+@model List<ProfilSayfam.Models.Analytics.BrowserStats>
+
+@{
+    ViewData["Title"] = "Tarayıcı İstatistikleri";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .chart-container {
+        position: relative;
+        height: 300px;
+        width: 100%;
+    }
+    .stats-card {
+        border: none;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+    .stats-card .card-header {
+        background-color: #4e73df;
+        color: white;
+        border-bottom: none;
+        padding: 1rem;
+    }
+    .stats-table th {
+        background-color: #4e73df !important;
+        color: white !important;
+        font-weight: 600;
+        border-color: #4e73df;
+    }
+    .stats-table td {
+        color: #2f2f2f;
+        background-color: #fff;
+        border-color: #e3e6f0;
+        padding: 12px;
+        vertical-align: middle;
+    }
+    .stats-table tbody tr:hover td {
+        background-color: #f8f9fc;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card stats-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-globe me-2"></i>
+                        Tarayıcı Dağılımı
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="browserChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card stats-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-desktop me-2"></i>
+                        Platform Dağılımı
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="platformChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card stats-card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-table me-2"></i>
+                        Detaylı İstatistikler
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover stats-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Tarayıcı</th>
+                                    <th class="text-center">Platform</th>
+                                    <th class="text-center">Ziyaret Sayısı</th>
+                                    <th class="text-center">Yüzde</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var totalVisits = Model.Sum(x => x.VisitCount);
+                                }
+                                @foreach (var stat in Model.OrderByDescending(x => x.VisitCount))
+                                {
+                                    var percentage = totalVisits > 0 ? (stat.VisitCount * 100.0 / totalVisits) : 0;
+                                    <tr>
+                                        <td>
+                                            <i class="fas @GetBrowserIcon(stat.Browser) me-2"></i>
+                                            @stat.Browser
+                                        </td>
+                                        <td>
+                                            <i class="fas @GetPlatformIcon(stat.Platform) me-2"></i>
+                                            @stat.Platform
+                                        </td>
+                                        <td class="text-center">@stat.VisitCount.ToString("N0")</td>
+                                        <td class="text-center">@percentage.ToString("F1")%</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetBrowserIcon(string browser)
+    {
+        return browser.ToLower() switch
+        {
+            "chrome" => "fa-chrome",
+            "firefox" => "fa-firefox",
+            "safari" => "fa-safari",
+            "edge" => "fa-edge",
+            "opera" => "fa-opera",
+            "internet explorer" => "fa-internet-explorer",
+            _ => "fa-globe"
+        };
+    }
+
+    private string GetPlatformIcon(string platform)
+    {
+        return platform.ToLower() switch
+        {
+            "windows" => "fa-windows",
+            "macos" => "fa-apple",
+            "linux" => "fa-linux",
+            "android" => "fa-android",
+            "ios" => "fa-apple",
+            _ => "fa-desktop"
+        };
+    }
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Renk paleti
+            const colors = [
+                '#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b',
+                '#858796', '#5a5c69', '#2e59d9', '#17a673', '#2c9faf'
+            ];
+
+            // Tarayıcı grafiği
+            var browserData = @Html.Raw(Json.Serialize(Model
+                .GroupBy(x => x.Browser)
+                .Select(g => new { Browser = g.Key, Count = g.Sum(x => x.VisitCount) })
+                .OrderByDescending(x => x.Count)));
+
+            new Chart(document.getElementById('browserChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: browserData.map(x => x.Browser),
+                    datasets: [{
+                        data: browserData.map(x => x.Count),
+                        backgroundColor: colors
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: { size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Platform grafiği
+            var platformData = @Html.Raw(Json.Serialize(Model
+                .GroupBy(x => x.Platform)
+                .Select(g => new { Platform = g.Key, Count = g.Sum(x => x.VisitCount) })
+                .OrderByDescending(x => x.Count)));
+
+            new Chart(document.getElementById('platformChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: platformData.map(x => x.Platform),
+                    datasets: [{
+                        data: platformData.map(x => x.Count),
+                        backgroundColor: colors
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: { size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+} 

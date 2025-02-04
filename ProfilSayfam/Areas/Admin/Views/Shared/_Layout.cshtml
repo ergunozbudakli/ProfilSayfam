@@ -1,0 +1,176 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Panel</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Admin Panel</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <i class="fas fa-home"></i>
+                        <span>Ana Sayfa</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="analyticsDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analytics</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="analyticsDropdown">
+                        <li>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Analytics" asp-action="Index">
+                                <i class="fas fa-tachometer-alt me-2"></i>Genel Bakış
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Analytics" asp-action="Locations">
+                                <i class="fas fa-map-marker-alt me-2"></i>Lokasyon İstatistikleri
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Analytics" asp-action="Browsers">
+                                <i class="fas fa-globe me-2"></i>Tarayıcı İstatistikleri
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Analytics" asp-action="Daily">
+                                <i class="fas fa-calendar-day me-2"></i>Günlük İstatistikler
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" asp-area="Admin" asp-controller="Analytics" asp-action="Monthly">
+                                <i class="fas fa-calendar-alt me-2"></i>Aylık İstatistikler
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a asp-area="Admin" asp-controller="Blog" asp-action="Index">
+                        <i class="fas fa-blog"></i>
+                        <span>Blog Yönetimi</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-area="Admin" asp-controller="Project" asp-action="Index">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>Proje Yönetimi</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-area="Admin" asp-controller="Contact" asp-action="Index">
+                        <i class="fas fa-envelope"></i>
+                        <span>İletişim Mesajları</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-area="Admin" asp-controller="Settings" asp-action="Index">
+                        <i class="fas fa-cog"></i>
+                        <span>Ayarlar</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <div class="ms-auto">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown" 
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Account" asp-action="Profile">
+                                        <i class="fas fa-user-circle me-2"></i>Profil
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Account" asp-action="Logout">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Çıkış Yap
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle
+            const sidebarCollapse = document.getElementById('sidebarCollapse');
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
+
+            if (sidebarCollapse) {
+                sidebarCollapse.addEventListener('click', function() {
+                    if (sidebar) sidebar.classList.toggle('active');
+                    if (content) content.classList.toggle('active');
+                });
+            }
+
+            // Dropdown menüler için
+            const dropdowns = document.querySelectorAll('.nav-item.dropdown');
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                
+                if (toggle && menu) {
+                    toggle.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        menu.classList.toggle('show');
+                    });
+                }
+            });
+
+            // Sayfa dışına tıklandığında dropdown'ları kapat
+            document.addEventListener('click', function(e) {
+                dropdowns.forEach(dropdown => {
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    if (!dropdown.contains(e.target) && menu) {
+                        menu.classList.remove('show');
+                    }
+                });
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html> 

@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Hoş Geldiniz</h5>
+                    <p class="card-text">Admin paneline hoş geldiniz. Sol menüden yapmak istediğiniz işlemi seçebilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Analytics</h5>
+                    <p class="card-text">Site istatistiklerini görüntüleyin</p>
+                    <a asp-area="Admin" asp-controller="Analytics" asp-action="Index" class="btn btn-light">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Blog Yönetimi</h5>
+                    <p class="card-text">Blog yazılarını yönetin</p>
+                    <a asp-area="Admin" asp-controller="Blog" asp-action="Index" class="btn btn-light">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">Proje Yönetimi</h5>
+                    <p class="card-text">Projelerinizi yönetin</p>
+                    <a asp-area="Admin" asp-controller="Project" asp-action="Index" class="btn btn-light">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">İletişim Mesajları</h5>
+                    <p class="card-text">Gelen mesajları görüntüleyin</p>
+                    <a asp-area="Admin" asp-controller="Contact" asp-action="Index" class="btn btn-light">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

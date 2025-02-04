@@ -1,0 +1,90 @@
+@model ProfilSayfam.Services.DashboardStats
+
+@{
+    ViewData["Title"] = "Analytics Dashboard";
+}
+
+<div class="container-fluid mt-4">
+    <h2 class="mb-4">Analytics Dashboard</h2>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Toplam Görüntülenme</h5>
+                    <p class="card-text display-4">@Model.TotalPageViews</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Toplam Dönüşüm</h5>
+                    <p class="card-text display-4">@Model.TotalConversions</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tekil Ziyaretçi</h5>
+                    <p class="card-text display-4">@Model.UniqueVisitors</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Bugünkü Görüntülenme</h5>
+                    <p class="card-text display-4">@Model.DailyPageViews</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Bu Ay Görüntülenme</h5>
+                    <p class="card-text display-4">@Model.MonthlyPageViews</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Bu Yıl Görüntülenme</h5>
+                    <p class="card-text display-4">@Model.YearlyPageViews</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <a href="@Url.Action("Locations", "AdminAnalytics")" class="btn btn-primary btn-lg btn-block mb-3">
+                Lokasyon İstatistikleri
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Browsers", "AdminAnalytics")" class="btn btn-primary btn-lg btn-block mb-3">
+                Tarayıcı İstatistikleri
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Daily", "AdminAnalytics")" class="btn btn-primary btn-lg btn-block mb-3">
+                Günlük İstatistikler
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Monthly", "AdminAnalytics")" class="btn btn-primary btn-lg btn-block mb-3">
+                Aylık İstatistikler
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+} 

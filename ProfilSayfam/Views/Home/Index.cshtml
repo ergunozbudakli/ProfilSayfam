@@ -255,6 +255,43 @@
             overflow: hidden;
         }
 
+        @@media screen and (max-width: 767.98px) {
+            .project-card {
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .project-card h3 {
+                font-size: 1.25rem !important;
+                margin-bottom: 1rem !important;
+            }
+
+            .project-card p {
+                font-size: 0.9rem !important;
+                margin-bottom: 1.5rem !important;
+                line-height: 1.4 !important;
+            }
+
+            .project-card .features-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                margin-bottom: 1.5rem !important;
+            }
+
+            .project-card .feature-item {
+                display: flex !important;
+                align-items: center !important;
+                margin-right: 0 !important;
+            }
+
+            .btn-format-converter {
+                width: 100%;
+                padding: 0.875rem !important;
+                font-size: 1rem !important;
+            }
+        }
+
         .project-card::before {
             content: '';
             position: absolute;
@@ -265,12 +302,6 @@
             background: linear-gradient(45deg, rgba(227, 28, 37, 0.1), transparent);
             opacity: 0;
             transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(227, 28, 37, 0.2);
-            border-color: rgba(227, 28, 37, 0.3);
         }
 
         .project-card:hover::before {
@@ -297,6 +328,41 @@
             position: relative;
             font-weight: 500;
             letter-spacing: 0.5px;
+        }
+
+        @@media screen and (max-width: 767.98px) {
+            #reference-projects {
+                padding: 2rem 0 0 0 !important;
+                margin-bottom: 0 !important;
+            }
+
+            #reference-projects .section-title {
+                margin-bottom: 1.5rem !important;
+            }
+
+            #reference-projects .project-cards {
+                margin-bottom: 0 !important;
+            }
+
+            #reference-projects .project-card {
+                margin-bottom: 1rem !important;
+            }
+
+            #reference-projects .project-card:last-child {
+                margin-bottom: 0 !important;
+                border-bottom: none !important;
+            }
+
+            .social-links {
+                padding-top: 1rem !important;
+                margin-top: 0 !important;
+                background: #000 !important;
+            }
+
+            .social-links .container {
+                padding-top: 1rem !important;
+                border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
         }
     </style>
 }
@@ -340,42 +406,35 @@
 
 <section id="about">
     <div class="container">
-        <div class="row">
-            <div class="wrapper">
-                <div class="left-wrapper">
-                    <div class="content animate-on-load delay-1">
-                        <div class="title">
-                            <h4 class="animate-on-load">@Localizer["AboutMe"]</h4>
-                            <h3 class="animate-on-load delay-1">@Localizer["CurrentPosition"]</h3>
-                            <p class="animate-on-load delay-2">@Localizer["CurrentPositionText"]</p>
-                            <h3 class="animate-on-load delay-2">@Localizer["LastExperience"]</h3>
-                            <p class="animate-on-load delay-3">@Localizer["AboutMeText1"]</p>
-                            <p style="margin-top: 10px;">@Localizer["PersonnelTrackingSystem"]</p>
-                            <p>@Localizer["AboutMeText2"]</p>
-                            <p>@Localizer["AboutMeText3"]</p>
-                            <p>@Localizer["AboutMeText4"]</p>
-                            <p>@Localizer["AboutMeText5"]</p>
-                            <p>@Localizer["AboutMeText6"]</p>
-                            <p>@Localizer["AboutMeText7"]</p>
-                        </div>
+        <div class="wrapper">
+            <div class="left-wrapper">
+                <div class="content">
+                    <div class="title">
+                        <h4>@Localizer["AboutMe"]</h4>
+                        <h3>@Localizer["CurrentPosition"]</h3>
+                        <p>@Localizer["CurrentPositionText"]</p>
+                        <h3>@Localizer["LastExperience"]</h3>
+                        <p>@Localizer["AboutMeText1"]</p>
+                        <p style="margin-top: 10px;">@Localizer["PersonnelTrackingSystem"]</p>
+                        <p>@Localizer["AboutMeText2"]</p>
+                        <p>@Localizer["AboutMeText3"]</p>
+                        <p>@Localizer["AboutMeText4"]</p>
+                        <p>@Localizer["AboutMeText5"]</p>
+                        <p>@Localizer["AboutMeText6"]</p>
+                        <p>@Localizer["AboutMeText7"]</p>
                     </div>
                 </div>
-                <div class="right-wrapper">
-                    <div class="content animate-on-load delay-2">
-                        <div class="title">
-                            <h3>@Localizer["Skills"]</h3>
-                            <p class="animate-on-load delay-3">@Localizer["SkillsText1"]</p>
-                            <p>@Localizer["SkillsText2"]</p>
-                            <p>@Localizer["SkillsText3"]</p>
-                            <p>@Localizer["SkillsText4"]</p>
-                            <p>@Localizer["SkillsText5"]</p>
-                            <p>@Localizer["SkillsText6"]</p>
-                            <p>@Localizer["SkillsText7"]</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="inter">
-                    <h6>@Localizer["WhatIDo"]</h6>
+            </div>
+            <div class="right-wrapper">
+                <div class="title">
+                    <h3>@Localizer["Skills"]</h3>
+                    <p>@Localizer["SkillsText1"]</p>
+                    <p>@Localizer["SkillsText2"]</p>
+                    <p>@Localizer["SkillsText3"]</p>
+                    <p>@Localizer["SkillsText4"]</p>
+                    <p>@Localizer["SkillsText5"]</p>
+                    <p>@Localizer["SkillsText6"]</p>
+                    <p>@Localizer["SkillsText7"]</p>
                 </div>
             </div>
         </div>
@@ -539,7 +598,7 @@
         </div>
     </div>
 </section>
-
+<script src="~/js/sendmail.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Tüm animate-on-load elementlerini seç
